@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/ajaxfileupload.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('input[type=button]').click(function () {
+            $.ajaxFileUpload
+                ({
+                    //url: '/home/file',
+                    url: 'http://localhost:62342/api/file',
+                    secureuri: false,
+                    fileElementId: 'file1',
+                    dataType: 'json',
+                    success: function (data) {
+                        data = data.replace(/<.+?>/g, "");
+                        console.log(data);
+                        var data_json = JSON.parse(data)
+                    },
+                    error: function (data, status, e) { alert(e) }
+                });
+        })
+    })
+</script>
+<input type="file" name="file1" id="file1" />
+<input type="button" value="upload" />
