@@ -2,26 +2,26 @@
     ViewBag.Title = "Home Page";
 }
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="http://libs.baidu.com/jquery/1.4.2/jquery.min.js"></script>
 <script src="~/Scripts/ajaxfileupload.js"></script>
 
 <script>
     $(document).ready(function () {
         $('input[type=button]').click(function () {
-            $.ajaxFileUpload
-                ({
-                    //url: '/home/file',
-                    url: 'http://localhost:62342/api/file',
-                    secureuri: false,
-                    fileElementId: 'file1',
-                    dataType: 'json',
-                    success: function (data) {
-                        data = data.replace(/<.+?>/g, "");
-                        console.log(data);
-                        var data_json = JSON.parse(data)
-                    },
-                    error: function (data, status, e) { alert(e) }
-                });
+            $.get('http://localhost:62342/api/file/key', function (key) {
+                $.ajaxFileUpload
+                    ({
+                        //url: '/home/file',
+                        url: 'http://localhost:62342/api/file?key=' + key,
+                        secureuri: false,
+                        fileElementId: 'file1',
+                        dataType: 'json',
+                        success: function (data) {
+                            $.get('http://localhost:62342/api/file', { key: key }, function (d) { console.log(d); })
+                        },
+                        error: function (data, status, e) { alert(e) }
+                    });
+            })
         })
     })
 </script>

@@ -75,7 +75,7 @@ jQuery.extend({
                     xml.responseXML = io.contentDocument.document.XMLDocument ? io.contentDocument.document.XMLDocument : io.contentDocument.document;
                 }
             } catch (e) {
-                jQuery.handleError(s, xml, null, e);
+                //jQuery.handleError(s, xml, null, e);
             }
             if (xml || isTimeout == "timeout") {
                 requestDone = true;
